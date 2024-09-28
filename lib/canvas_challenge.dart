@@ -77,7 +77,7 @@ class _CanvasChallengeState extends State<CanvasChallenge> {
                                             leftSelectedIndex == index)
                                         ? containerColors[index]
                                         : Colors.transparent,
-                                    width: 5,
+                                    width: 8,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -114,7 +114,7 @@ class _CanvasChallengeState extends State<CanvasChallenge> {
                                       ? Border.all(
                                           color: containerColors[
                                               connections.indexOf(index)],
-                                          width: 5,
+                                          width: 8,
                                         )
                                       : null,
                                   borderRadius: BorderRadius.circular(8),
@@ -153,7 +153,7 @@ class CurvePainter extends CustomPainter {
 
         final paint = Paint()
           ..color = containerColors[i]
-          ..strokeWidth = 5
+          ..strokeWidth = 8
           ..style = PaintingStyle.stroke;
 
         final p1 = _getContainerPosition(leftKeys[i]);
@@ -165,7 +165,7 @@ class CurvePainter extends CustomPainter {
 
         final path = Path()
           ..moveTo(p1.dx, p1.dy)
-          ..cubicTo(cp1.dx, p1.dy, cp2.dx, cp2.dy, p2.dx, cp2.dy);
+          ..cubicTo(cp1.dx + 50, p1.dy, cp2.dx, cp2.dy, p2.dx - 110, p2.dy);
 
         canvas.drawPath(path, paint);
       }
