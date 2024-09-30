@@ -34,7 +34,7 @@ class _CanvasChallengeState extends State<CanvasChallenge>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 1000),
     );
     _animationController.addListener(() {
       setState(() {}); // Update UI whenever animation progresses
@@ -74,7 +74,8 @@ class _CanvasChallengeState extends State<CanvasChallenge>
                         leftKeys,
                         rightKeys,
                         _animationController.value,
-                        currentAnimatingIndex, // Pass the current animation index
+                        currentAnimatingIndex,
+                        containerSize,
                       ),
                       size: Size(constraints.maxWidth, constraints.maxHeight),
                     );
@@ -180,6 +181,7 @@ class _CanvasChallengeState extends State<CanvasChallenge>
 
 class CurvePainter extends CustomPainter {
   final List<int?> connections;
+  final double containerSize;
   final List<Color> containerColors;
   final List<GlobalKey> leftKeys;
   final List<GlobalKey> rightKeys;
@@ -187,7 +189,7 @@ class CurvePainter extends CustomPainter {
   final int? animatingIndex;
 
   CurvePainter(this.connections, this.containerColors, this.leftKeys,
-      this.rightKeys, this.progress, this.animatingIndex);
+      this.rightKeys, this.progress, this.animatingIndex, this.containerSize);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -205,11 +207,12 @@ class CurvePainter extends CustomPainter {
         final p2 = _getContainerPosition(rightKeys[rightIndex!]);
 
         final cp1 = Offset(size.width * 0.5 + 10, p1.dy);
-        final cp2 = Offset(size.width * 0.5 - 50, p2.dy);
+        final cp2 = Offset(size.width * 0.5 - 70, p2.dy);
 
         final path = Path()
           ..moveTo(p1.dx, p1.dy)
-          ..cubicTo(cp1.dx + 50, p1.dy, cp2.dx, cp2.dy, p2.dx - 110, p2.dy);
+          ..cubicTo(cp1.dx + 50, p1.dy, cp2.dx, cp2.dy,
+              p2.dx - containerSize + 10, p2.dy);
 
         if (i == animatingIndex) {
           PathMetrics pathMetrics = path.computeMetrics();
