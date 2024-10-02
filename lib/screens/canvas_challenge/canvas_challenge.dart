@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:canvas_test_challenge/screens/fraction/fraction_page.dart';
 import 'package:flutter/material.dart';
 
 class CanvasChallenge extends StatefulWidget {
@@ -168,6 +169,22 @@ class _CanvasChallengeState extends State<CanvasChallenge>
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: SafeArea(
+                    child: IconButton(
+                      onPressed: () {
+                        print('press');
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => const FractionPage()),
+                            (route) => false);
+                      },
+                      icon: const Icon(Icons.arrow_forward_ios_rounded,
+                          color: Colors.grey, size: 50),
+                    ),
                   ),
                 ),
               ],
