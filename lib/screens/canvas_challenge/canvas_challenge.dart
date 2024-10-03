@@ -28,7 +28,7 @@ class _CanvasChallengeState extends State<CanvasChallenge>
   final List<GlobalKey> rightKeys = List.generate(4, (_) => GlobalKey());
 
   late AnimationController _animationController;
-  int? currentAnimatingIndex; // Track which connection is being animated
+  int? currentAnimatingIndex;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _CanvasChallengeState extends State<CanvasChallenge>
       duration: const Duration(milliseconds: 1000),
     );
     _animationController.addListener(() {
-      setState(() {}); // Update UI whenever animation progresses
+      setState(() {});
     });
   }
 
@@ -135,14 +135,11 @@ class _CanvasChallengeState extends State<CanvasChallenge>
                                       (element) => element == index);
 
                                   if (leftIndex != -1) {
-                                    // Disconnect if already connected
                                     connections[leftIndex] = null;
                                   } else if (leftSelectedIndex != null) {
-                                    // Make the connection and start the animation
                                     connections[leftSelectedIndex!] = index;
                                     currentAnimatingIndex = leftSelectedIndex;
 
-                                    // Reset and start the animation
                                     _animationController.reset();
                                     _animationController.forward();
                                   }
@@ -176,7 +173,6 @@ class _CanvasChallengeState extends State<CanvasChallenge>
                   child: SafeArea(
                     child: IconButton(
                       onPressed: () {
-                        print('press');
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                                 builder: (context) => const FractionPage()),
